@@ -29,12 +29,6 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - container: rocm/dev-ubuntu-20.04:5.7-complete
-            xla_target: rocm
-            python: "3.9"
-    container: ${{ matrix.container }}
     env:
       # This env is normally set by default, but we need to mirror it into the container
       # ourselves (used by the actions/setup-beam).
@@ -65,4 +59,4 @@ jobs:
       - run: .github/scripts/compile_and_upload.sh ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          XLA_TARGET: ${{ matrix.xla_target }}
+          XLA_TARGET: rocm
