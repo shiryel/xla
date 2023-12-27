@@ -43,6 +43,14 @@ jobs:
       # Bazel Version
       USE_BAZEL_VERSION: 6.1.2
     steps:
+      - name: Free more space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force
+
       # The base images are minimalistic, so we bring a few necessary system packages
       - name: Install system packages
         run: |
