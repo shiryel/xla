@@ -1,8 +1,8 @@
 name: Release
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  push #:
+    #tags:
+    #  - "v*.*.*"
 
 jobs:
   create_draft_release:
@@ -45,11 +45,27 @@ jobs:
     steps:
       - name: Free more space
         run: |
+          echo "Memory and swap:"
+          sudo free
+          echo
+          sudo swapon --show
+          echo
+          echo "Available storage:"
+          sudo df -h
+          echo
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf /usr/local/lib/android
           sudo rm -rf /opt/ghc
           sudo rm -rf /opt/hostedtoolcache/CodeQL
-
+          sudo free
+          echo
+          sudo swapon --show
+          echo
+          echo "Available storage:"
+          sudo df -h
+          echo
+          sudo lsblk
+          
       # The base images are minimalistic, so we bring a few necessary system packages
       - name: Install system packages
         run: |
