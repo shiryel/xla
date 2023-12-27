@@ -21,9 +21,6 @@ jobs:
           fi
 
   linux_rocm:
-    # Currently the build takes longer than the job time limit (6h),
-    # so we always build these off-CI
-    if: false
     name: "x86_64-linux-gnu-${{ matrix.xla_target }}"
     needs: [create_draft_release]
     runs-on: ubuntu-20.04
