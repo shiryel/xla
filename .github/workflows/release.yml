@@ -52,8 +52,7 @@ jobs:
           # this might remove tools that are actually needed,
           # if set to "true" but frees about 6 GB
           tool-cache: false
-    
-      # The base images are minimalistic, so we bring a few necessary system packages
+      - uses: actions/checkout@v3
       - name: Build XLA
         run: ./builds/build.sh rocm
       - run: .github/scripts/compile_and_upload.sh ${{ github.ref_name }}
