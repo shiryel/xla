@@ -21,6 +21,18 @@ jobs:
           if ! gh release list | grep -q ${{ github.ref_name }}; then
             gh release create --title ${{ github.ref_name }} --draft ${{ github.ref_name }}
           fi
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: false
+          # this might remove tools that are actually needed,
+          # if set to "true" but frees about 6 GB
+          tool-cache: false
 
   linux_rocm:
     name: "x86_64-linux-gnu-${{ matrix.xla_target }}"
@@ -45,19 +57,6 @@ jobs:
       # Bazel Version
       USE_BAZEL_VERSION: 6.1.2
     steps:
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
-        with:
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: false
-          # this might remove tools that are actually needed,
-          # if set to "true" but frees about 6 GB
-          tool-cache: false
-          
       # The base images are minimalistic, so we bring a few necessary system packages
       - name: Install system packages
         run: |
