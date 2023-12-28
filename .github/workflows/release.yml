@@ -59,5 +59,6 @@ jobs:
         run: ./builds/build.sh rocm
       - name: Publish
         run: |
-          ls -alh "$(pwd)/builds/output/rocm/build/0.6.0/cache/build"
           gh release upload --clobber ${{ github.ref_name }} "$(pwd)/builds/output/rocm/build/0.6.0/cache/build/xla_extension-x86_64-linux-gnu-rocm.tar.gz"
+        env:
+          GH_TOKEN: ${{ github.token }}
