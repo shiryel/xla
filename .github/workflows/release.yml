@@ -1,15 +1,12 @@
 name: Release
 on:
   push:
-    branches:
-      - 'main'
-    #tags:
-    #  - "v*.*.*"
-
+    tags:
+      - "v*.*.*"
 
 jobs:
   create_draft_release:
-    #if: github.ref_type == 'tag'
+    if: github.ref_type == 'tag'
     permissions:
       contents: write
     runs-on: ubuntu-20.04
@@ -31,19 +28,9 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
-    env:
-      # This env is normally set by default, but we need to mirror it into the container
-      # ourselves (used by the actions/setup-beam).
-      ImageOS: ubuntu20
-      # Set the missing UTF-8 locale, otherwise Elixir warns
-      LC_ALL: C.UTF-8
-      # Make sure installing packages (like tzdata) doesn't prompt for configuration
-      DEBIAN_FRONTEND: noninteractive
-      # Bazel Version
-      USE_BAZEL_VERSION: 6.1.2
     steps:
       - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
+        uses: jlumbroso/free-disk-space@v1.3.1
         with:
           android: true
           dotnet: true
@@ -51,8 +38,6 @@ jobs:
           large-packages: true
           docker-images: false
           swap-storage: false
-          # this might remove tools that are actually needed,
-          # if set to "true" but frees about 6 GB
           tool-cache: false
       - uses: actions/checkout@v3
       - name: Build XLA
