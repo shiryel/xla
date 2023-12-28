@@ -26,6 +26,8 @@ jobs:
   linux_rocm:
     name: "x86_64-linux-gnu-${{ matrix.xla_target }}"
     needs: [create_draft_release]
+    permissions:
+      contents: write
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
@@ -57,12 +59,5 @@ jobs:
         run: ./builds/build.sh rocm
       - name: Publish
         run: |
-          ls -alh "$(pwd)/builds/output/rocm/build/0.6.0"
-          ls -alh "$(pwd)/builds/output/rocm/.cache/xla_extension"
-          ls -alh "$(pwd)/builds/output/rocm/build/0.6.0/cache"
           ls -alh "$(pwd)/builds/output/rocm/build/0.6.0/cache/build"
-          #ls -alh "/home/runner/.cache/xla/0.6.0/cache/build"
           gh release upload --clobber ${{ github.ref_name }} "$(pwd)/builds/output/rocm/build/0.6.0/cache/build/xla_extension-x86_64-linux-gnu-rocm.tar.gz"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          XLA_TARGET: rocm
