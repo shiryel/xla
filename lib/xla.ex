@@ -80,6 +80,7 @@ defmodule XLA do
             "--config=rocm",
             "--action_env=HIP_PLATFORM=hcc",
             # See https://github.com/google/jax/blob/c9cf6b44239e373cba384936dcfeff60e39ad560/.bazelrc#L80
+            # and https://github.com/openxla/xla/blob/main/xla/stream_executor/device_description.h#L212
             ~s/--action_env=TF_ROCM_AMDGPU_TARGETS="gfx900,gfx906,gfx908,gfx90a,gfx1030,gfx1100"/
           ]
 
