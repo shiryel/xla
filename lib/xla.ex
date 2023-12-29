@@ -6,7 +6,7 @@ defmodule XLA do
   require Logger
 
   @version Mix.Project.config()[:version]
-  @github_repo "elixir-nx/xla"
+  @github_repo "shiryel/xla"
 
   @doc """
   Returns path to the precompiled XLA archive.
