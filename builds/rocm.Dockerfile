@@ -1,6 +1,6 @@
-FROM hexpm/elixir:1.15.4-erlang-26.0.2-ubuntu-focal-20230126 AS elixir
+FROM hexpm/elixir:1.16.0-erlang-26.2.1-ubuntu-focal-20231003 AS elixir
 
-FROM rocm/dev-ubuntu-20.04:5.7-complete
+FROM rocm/dev-ubuntu-22.04:5.7.1-complete
 
 # Set the missing UTF-8 locale, otherwise Elixir warns
 ENV LC_ALL C.UTF-8
@@ -40,7 +40,7 @@ RUN cp -r /usr/ELIXIR_LOCAL/lib/* /usr/local/lib && \
 
 # ---
 
-ENV ROCM_PATH "/opt/rocm-5.7.0"
+ENV ROCM_PATH "/opt/rocm-5.7.1"
 
 # ---
 
