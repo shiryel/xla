@@ -1,4 +1,4 @@
-FROM hexpm/elixir:1.16.0-erlang-26.2.1-ubuntu-focal-20231003 AS elixir
+FROM hexpm/elixir:1.16.0-erlang-26.2.1-ubuntu-jammy-20231004 AS elixir
 
 FROM rocm/dev-ubuntu-22.04:5.7.1-complete
 
@@ -29,8 +29,8 @@ RUN apt-get install -y python3 python3-pip && \
 
 # Install Erlang and Elixir
 
-# Erlang runtime dependencies, see https://github.com/hexpm/bob/blob/3b5721dccdfe9d59766f374e7b4fb7fb8a7c720e/priv/scripts/docker/erlang-ubuntu-focal.dockerfile#L41-L45
-RUN apt-get install -y --no-install-recommends libodbc1 libssl1.1 libsctp1
+# Erlang runtime dependencies, see https://github.com/hexpm/bob/blob/cd7db612053f371a6e62dc03060b1ccd3b661a2e/priv/scripts/docker/erlang-ubuntu-jammy.dockerfile#L39
+RUN apt-get install -y --no-install-recommends ca-certificates libodbc1 libssl3 libsctp1
 
 # We copy the top-level directory first to preserve symlinks in /usr/local/bin
 COPY --from=elixir /usr/local /usr/ELIXIR_LOCAL
